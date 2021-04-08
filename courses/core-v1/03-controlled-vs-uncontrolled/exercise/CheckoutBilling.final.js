@@ -2,20 +2,16 @@ import * as React from 'react'
 import { MdShoppingCart } from 'react-icons/md'
 import Heading from 'YesterTech/Heading'
 
-interface CheckoutBillingProps {
-  onSubmit(sameAsBilling: boolean, fields: Fields): void
-}
-
-const CheckoutBilling: React.FC<CheckoutBillingProps> = ({ onSubmit }) => {
+const CheckoutBilling = ({ onSubmit }) => {
   const [sameAsBilling, setSameAsBilling] = React.useState(false)
   const [billingName, setBillingName] = React.useState('')
   const [billingAddress, setBillingAddress] = React.useState('')
   const [shippingName, setShippingName] = React.useState('')
   const [shippingAddress, setShippingAddress] = React.useState('')
 
-  function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+  function handleSubmit(event) {
     event.preventDefault()
-    const fields: Fields = {
+    const fields = {
       billingName,
       billingAddress,
       shippingName: sameAsBilling ? billingName : shippingName,
@@ -100,10 +96,3 @@ const CheckoutBilling: React.FC<CheckoutBillingProps> = ({ onSubmit }) => {
 }
 
 export default CheckoutBilling
-
-type Fields = {
-  billingName: string
-  billingAddress: string
-  shippingName: string
-  shippingAddress: string
-}

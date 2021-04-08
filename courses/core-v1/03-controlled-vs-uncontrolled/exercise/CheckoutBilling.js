@@ -3,18 +3,14 @@ import { MdShoppingCart } from 'react-icons/md'
 import serializeForm from 'form-serialize'
 import Heading from 'YesterTech/Heading'
 
-interface CheckoutBillingProps {
-  onSubmit(...args: any): void
-}
-
-const CheckoutBilling: React.FC<CheckoutBillingProps> = ({ onSubmit }) => {
+const CheckoutBilling = ({ onSubmit }) => {
   const [sameAsBilling, setSameAsBilling] = React.useState(false)
 
-  function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+  function handleSubmit(event) {
     event.preventDefault()
     // When the fields are stored in state above, this fields variable can just be
     // an object filled with the field states. We don't need `serializeForm` anymore
-    const fields = serializeForm(event.target as HTMLFormElement, {
+    const fields = serializeForm(event.target, {
       hash: true,
     })
     onSubmit(sameAsBilling, fields)
@@ -76,11 +72,3 @@ const CheckoutBilling: React.FC<CheckoutBillingProps> = ({ onSubmit }) => {
 }
 
 export default CheckoutBilling
-
-// 👀
-type Fields = {
-  billingName: string
-  billingAddress: string
-  shippingName: string
-  shippingAddress: string
-}
