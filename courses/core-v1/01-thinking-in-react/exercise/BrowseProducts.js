@@ -1,6 +1,7 @@
 import * as React from 'react'
 // import { FaRegStar, FaStar, FaStarHalfAlt } from 'react-icons/fa'
 // import Heading from 'YesterTech/Heading'
+import StarRatings from './StarRatings'
 
 const products = [
   {
@@ -26,8 +27,16 @@ const products = [
   },
 ]
 
-export default function BrowseProducts() {
-  console.log(products)
+function productsMapCallback(product, i, list) {
+  return <p key={product.id}>{product.name}</p>
+}
 
-  return <div>{/* Exercise code goes here! This is what comments look like in JSX */}</div>
+export default function BrowseProducts() {
+  return products.map(({ name: productName, brand, rating, id }) => (
+    <React.Fragment key={id}>
+      <h2>{productName}</h2>
+      <p>{brand}</p>
+      <StarRatings rating={rating} />
+    </React.Fragment>
+  ))
 }
