@@ -42,6 +42,3 @@ function Quantity() {
 }
 
 export default Quantity
-
-type QuantityState = { quantity: number }
-type QuantityActions = { type: 'SUBTRACT' } | { type: 'ADD' } | { type: 'INPUT' }

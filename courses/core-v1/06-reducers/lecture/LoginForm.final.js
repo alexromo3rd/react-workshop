@@ -8,27 +8,70 @@ import Centered from 'YesterTech/Centered'
 import api from 'YesterTech/api'
 import { UserNoPassword } from 'YesterTech/types'
 
-interface LoginFormProps {
-  onAuthenticated?(user: any): any
+// const [loading, setLoading] = React.useState<boolean>(false);
+// const [error, setError] = React.useState<any>(null);
+// const [user, setUser] = React.useState<UserNoPassword | null>(null);
+
+const initialState = {
+  loading: false,
+  error: null,
+  user: null,
 }
 
-function LoginForm({ onAuthenticated }: LoginFormProps): React.ReactElement {
-  const usernameRef = React.useRef<HTMLInputElement | null>(null)
-  const passwordRef = React.useRef<HTMLInputElement | null>(null)
-  const [showPassword, setShowPassword] = React.useState<boolean>(false)
+function LoginForm({ onAuthenticated }) {
+  const usernameRef = React.useRef(null)
+  const passwordRef = React.useRef(null)
+  const [showPassword, setShowPassword] = React.useState(false)
 
   // Change to reducer, then state machine
-  const [loading, setLoading] = React.useState<boolean>(false)
-  const [error, setError] = React.useState<any>(null)
-  const [user, setUser] = React.useState<UserNoPassword | null>(null)
+  const [state, dispatch] = React.useReducer(function reducer(state, action) {
+    switch (action.type) {
+      case 'LOGIN':
+        return {
+          user: null,
+          error: false,
+          loading: true,
+        }
+      case 'SUCCESS':
+        return {
+          loading: false,
+          error: false,
+          user: action.user,
+        }
+      case 'ERROR':
+        return {
+          loading: false,
+          user: null,
+          error: action.message,
+        }
+      default:
+        return state
+    }
+  }, initialState)
+
+  const loading = state.loading
+  const error = state.error
+  const user = state.user
 
   React.useEffect(() => {
     let isCurrent = true
     let username = usernameRef.current?.value
     let password = passwordRef.current?.value
+
     if (loading) {
-      if (!username || !password) {
-        setLoading(false)
+      if (!username && !password) {
+        dispatch({
+          type: 'ERROR',
+          message: 'Username and password are required to login',
+        })
+        return
+      }
+      if (!username) {
+        dispatch({ type: 'ERROR', message: 'Username is required to login' })
+        return
+      }
+      if (!password) {
+        dispatch({ type: 'ERROR', message: 'Password is required to login' })
         return
       }
 
@@ -36,13 +79,12 @@ function LoginForm({ onAuthenticated }: LoginFormProps): React.ReactElement {
         .login(username, password)
         .then((user) => {
           if (isCurrent) {
-            setUser(user)
+            dispatch({ type: 'SUCCESS', user })
           }
         })
         .catch((error) => {
           if (isCurrent) {
-            setError(error)
-            setLoading(false)
+            dispatch({ type: 'ERROR', message: error })
           }
         })
     }
@@ -57,10 +99,9 @@ function LoginForm({ onAuthenticated }: LoginFormProps): React.ReactElement {
     }
   }, [onAuthenticated, user])
 
-  function handleLogin(event: React.FormEvent<HTMLFormElement>) {
+  function handleLogin(event) {
     event.preventDefault()
-    setLoading(true)
-    setError(null)
+    dispatch({ type: 'LOGIN' })
   }
 
   return (

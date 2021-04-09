@@ -2,12 +2,9 @@ import * as React from 'react'
 import { FaMinusCircle, FaPlusCircle } from 'react-icons/fa'
 import 'YesterTech/Quantity.scss'
 
-type QuantityState = { quantity: number }
-type QuantityActions = { type: 'SUBTRACT' } | { type: 'ADD' } | { type: 'INPUT'; quantity: number }
-
-function Quantity(): React.ReactElement {
+function Quantity() {
   const [state, dispatch] = React.useReducer(
-    function QuantityReducer(state: QuantityState, action: QuantityActions): QuantityState {
+    function QuantityReducer(state, action) {
       switch (action.type) {
         case 'SUBTRACT': {
           return { quantity: state.quantity - 1 }
