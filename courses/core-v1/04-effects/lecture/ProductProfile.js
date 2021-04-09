@@ -15,10 +15,10 @@ import api from 'YesterTech/api'
 // https://twitter.com/dan_abramov/status/1313891773224189953
 
 function ProductProfile() {
-  let { productId } = useParams<{ productId: any }>()
+  let { productId } = useParams()
   productId = parseInt(productId, 10)
 
-  const product: Product | null = null as any
+  const product = null
 
   // Cart
   const { addToCart, updateQuantity, getQuantity } = useShoppingCart()

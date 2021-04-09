@@ -2,19 +2,8 @@ import * as React from 'react'
 import ProductFilterList from 'YesterTech/ProductFilterList'
 import { getCategories } from './utils'
 
-const ProductFilters: React.FC = () => {
-  const [categories, setCategories] = React.useState<string[] | null>(null)
-
-  React.useEffect(function fetchCategories() {
-    let isCurrent = true
-    getCategories().then((categories) => {
-      if (!isCurrent) return
-      setCategories(categories)
-    })
-    return () => {
-      isCurrent = false
-    }
-  }, [])
+const ProductFilters = () => {
+  const categories = null
 
   if (!categories) return <div>Loading Filters...</div>
 
