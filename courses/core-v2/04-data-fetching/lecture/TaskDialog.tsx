@@ -15,7 +15,12 @@ type Props = {
   [key: string]: any
 }
 
-function useTask(taskId) {
+export const TaskDialog: React.FC<Props> = ({
+  taskId,
+  siblingTaskIds,
+  onChangeTaskId,
+  onClose,
+}) => {
   const [task, setTask] = useState<Task | null>(null)
 
   // Any variable that we "close over" that CAN CHANGE!!!
@@ -31,16 +36,11 @@ function useTask(taskId) {
     }
   }, [taskId])
 
-  return [task, setTask]
-}
-
-export const TaskDialog: React.FC<Props> = ({
-  taskId,
-  siblingTaskIds,
-  onChangeTaskId,
-  onClose,
-}) => {
-  const [task, setTask] = useTask(taskId)
+  useEffect(() => {
+    if (task) {
+      document.title = task.name
+    }
+  }, [task])
 
   const complete = (task && task.minutes === task.completedMinutes && task.minutes > 0) || false
   const i = siblingTaskIds.indexOf(taskId)

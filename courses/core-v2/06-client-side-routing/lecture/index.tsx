@@ -30,7 +30,14 @@ const PrimaryLayout: React.FC = () => {
     <div className="primary-layout">
       <PrimaryHeader />
       <main className="primary-content">
-        <Dashboard />
+        <Switch>
+          <Route path="/" exact>
+            <Dashboard />
+          </Route>
+          <Route path="/boards">
+            <BoardsSubLayout />
+          </Route>
+        </Switch>
       </main>
       <PrimaryFooter />
     </div>
@@ -56,6 +63,24 @@ const PrimaryHeader: React.FC = () => {
         </div>
       </div>
     </header>
+  )
+}
+
+function BoardsSubLayout() {
+  return (
+    <div>
+      [Search Bar]
+      <div>
+        <Switch>
+          <Route path="/boards" exact>
+            <BrowseBoards />
+          </Route>
+          <Route path="/boards/:boardId">
+            <Board />
+          </Route>
+        </Switch>
+      </div>
+    </div>
   )
 }
 
