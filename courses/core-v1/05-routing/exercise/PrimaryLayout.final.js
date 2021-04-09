@@ -16,7 +16,7 @@ import ProductSubNav from 'YesterTech/ProductSubNav'
 import Checkout from 'YesterTech/Checkout'
 import { useShoppingCart } from 'YesterTech/ShoppingCartState'
 
-function PrimaryLayout(): React.ReactElement {
+function PrimaryLayout() {
   const { authenticated } = useAuthState()
   const { cart } = useShoppingCart()
 

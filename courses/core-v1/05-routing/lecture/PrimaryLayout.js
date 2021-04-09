@@ -11,7 +11,7 @@ import StarRatings from 'YesterTech/StarRatings'
 import ProductFilterItem from 'YesterTech/ProductFilterItem'
 import ProductSubNav from 'YesterTech/ProductSubNav'
 
-const PrimaryLayout = (): React.ReactElement => {
+const PrimaryLayout = () => {
   return (
     <div className="primary-layout">
       <div>
@@ -28,7 +28,7 @@ const PrimaryLayout = (): React.ReactElement => {
 
 export default PrimaryLayout
 
-function PrimaryHeader(): React.ReactElement {
+function PrimaryHeader() {
   return (
     <header className="primary-header flex-parent flex-justify-space-between flex-align-center">
       <div>
@@ -46,7 +46,7 @@ function PrimaryHeader(): React.ReactElement {
   )
 }
 
-function Home(): React.ReactElement {
+function Home() {
   return (
     <div className="spacing">
       <Heading>Home Page</Heading>
@@ -54,7 +54,7 @@ function Home(): React.ReactElement {
   )
 }
 
-function PrimaryFooter(): React.ReactElement {
+function PrimaryFooter() {
   return (
     <footer className="primary-footer spacing">
       <hr />
@@ -63,7 +63,7 @@ function PrimaryFooter(): React.ReactElement {
   )
 }
 
-function ProductsLayout(): React.ReactElement {
+function ProductsLayout() {
   return (
     <div className="products-layout">
       <aside className="spacing">
@@ -82,7 +82,7 @@ function ProductsLayout(): React.ReactElement {
   )
 }
 
-function ProductProfile(): React.ReactElement {
+function ProductProfile() {
   return (
     <div className="spacing">
       <Columns gutters>
@@ -104,7 +104,7 @@ function ProductProfile(): React.ReactElement {
   )
 }
 
-function BrowseProducts(): React.ReactElement {
+function BrowseProducts() {
   return (
     <div className="spacing">
       <ul>
