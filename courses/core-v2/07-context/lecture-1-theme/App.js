@@ -32,9 +32,9 @@ export const App = () => {
   )
 }
 
-const PrimaryLayout = () => {
+const PrimaryLayout = React.memo(() => {
   return <Board />
-}
+})
 
 const Board = () => {
   return <TaskCard />
