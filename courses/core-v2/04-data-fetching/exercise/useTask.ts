@@ -5,8 +5,7 @@ import { api } from 'ProjectPlanner/api'
 export function useTask(taskId: number) {
   const [task, setTask] = useState<Task | null>(null)
 
-  // Do Effect here
+  useEffect(() => {}, [])
 
-  // Ask instructor what "as const" does for us here
   return [task, setTask] as const
 }
