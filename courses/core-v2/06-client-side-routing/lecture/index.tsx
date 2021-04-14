@@ -30,7 +30,17 @@ const PrimaryLayout: React.FC = () => {
     <div className="primary-layout">
       <PrimaryHeader />
       <main className="primary-content">
-        <Dashboard />
+        <Switch>
+          <Route path="/" exact>
+            <Dashboard />
+          </Route>
+          <Route path="/boards" exact>
+            <BrowseBoards />
+          </Route>
+          <Route path="/boards/:boardId">
+            <Board />
+          </Route>
+        </Switch>
       </main>
       <PrimaryFooter />
     </div>
@@ -102,7 +112,8 @@ const BrowseBoards: React.FC = () => {
 }
 
 const Board: React.FC = () => {
-  const { boardId } = useParams<{ boardId: string }>()
+  // const { boardId } = match.params
+  const { boardId } = useParams()
 
   return (
     <Centered size={50}>
