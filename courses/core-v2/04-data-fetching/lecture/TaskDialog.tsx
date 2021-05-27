@@ -11,10 +11,11 @@ import { Progress } from 'ProjectPlanner/Progress'
 import 'ProjectPlanner/TaskDialog.scss'
 
 type Props = {
-  taskId: number
-  siblingTaskIds: number[]
-  onChangeTaskId(taskId: number): void
-  onClose(): void
+  // taskId: number
+  // siblingTaskIds: number[]
+  // onChangeTaskId(taskId: number): void
+  // onClose(): void
+  [key: string]: any
 }
 
 export const TaskDialog: React.FC<Props> = ({
@@ -25,7 +26,44 @@ export const TaskDialog: React.FC<Props> = ({
 }) => {
   const [task, setTask] = useState<Task | null>(null)
 
-  // api.boards.getTask(taskId)
+  // useCallback saves the function to getTask so that it has the same place in memory and won't have after every render
+  // const getTask = React.useCallback(() => api.boards.getTask(taskId), [taskId])
+
+  // Network
+  // localStorage
+  // cookies
+  // document
+  // window
+  // DOM
+
+  // useEffect function is called at the end, after the component mounts and is rendered
+  // useEffect will run again if the item(s) in the dependency array changes
+  // called during the commit phase
+
+  // when we mount
+  // when dep array changes
+
+  // Any variables that we "close over" and CAN CHANGE
+  useEffect(() => {
+    // if promise isn't resolved and component unmounts
+    // this is a good way to "cancel" a promise
+    let isCurrent = true
+    console.log('effect', taskId)
+    api.boards.getTask(taskId).then(task => {
+      if (isCurrent) {
+        setTask(task)
+      }
+    })
+
+    // returning a function in useEffect is for cleaning up things
+    // when we unmount
+    // when dep array changes
+    return () => {
+      isCurrent = false
+      console.log('cleanup', taskId)
+    }
+  }, [taskId])
+
 
   const complete = (task && task.minutes === task.completedMinutes && task.minutes > 0) || false
   const i = siblingTaskIds.indexOf(taskId)
